@@ -1,0 +1,27 @@
+<div class="mb-8 flex items-center justify-between">
+  <h1 class="text-3xl font-bold text-slate-900">Especies</h1>
+  <%= link_to "Nueva Especie", new_species_path, class: "rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700" %>
+</div>
+
+<div class="overflow-hidden rounded-lg bg-white shadow">
+  <table class="min-w-full divide-y divide-slate-200">
+    <thead class="bg-slate-100">
+      <tr>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Nombre común</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Nombre científico</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Clase taxonómica</th>
+        <th class="px-6 py-3 text-left text-sm font-semibold text-slate-700">Estado de conservación</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-200">
+      <% @species.each do |species| %>
+        <tr>
+          <td class="px-6 py-4 text-slate-900"><%= species.common_name %></td>
+          <td class="px-6 py-4 text-slate-700"><%= species.scientific_name %></td>
+          <td class="px-6 py-4 text-slate-700"><%= species.taxonomy_class %></td>
+          <td class="px-6 py-4 text-slate-700"><%= species.conservation_status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

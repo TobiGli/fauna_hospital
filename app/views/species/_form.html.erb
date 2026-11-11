@@ -1,0 +1,29 @@
+<%= form_with model: @species, class: "space-y-6" do |form| %>
+  <% if @species.errors.any? %>
+    <div class="rounded-lg bg-red-50 p-4 text-red-700">
+      <%= pluralize(@species.errors.count, "error") %> impidieron guardar esta especie.
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :common_name, "Nombre común", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :common_name, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :scientific_name, "Nombre científico", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :scientific_name, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :taxonomy_class, "Clase taxonómica", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :taxonomy_class, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :conservation_status, "Estado de conservación", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :conservation_status, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <%= form.submit "Guardar Especie", class: "rounded-lg bg-emerald-600 px-5 py-2 font-semibold text-white hover:bg-emerald-700" %>
+<% end %>
