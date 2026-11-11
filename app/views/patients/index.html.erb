@@ -1,0 +1,15 @@
+<div class="mb-8 flex items-center justify-between">
+  <h1 class="text-3xl font-bold text-slate-900">Pacientes</h1>
+  <%= link_to "Nuevo Paciente", new_patient_path, class: "rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700" %>
+</div>
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <% @patients.each do |patient| %>
+    <article class="rounded-lg bg-white p-6 shadow">
+      <h2 class="text-xl font-bold text-slate-900"><%= patient.name %></h2>
+      <p class="mt-2 text-slate-600"><%= patient.species.common_name %></p>
+      <p class="mt-1 text-sm text-slate-500">Estado: <%= patient.status %></p>
+      <%= link_to "Ver", patient_path(patient), class: "mt-4 inline-block font-semibold text-emerald-700 hover:text-emerald-900" %>
+    </article>
+  <% end %>
+</div>
