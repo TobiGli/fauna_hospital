@@ -1,0 +1,39 @@
+<%= form_with model: @patient, class: "space-y-6" do |form| %>
+  <% if @patient.errors.any? %>
+    <div class="rounded-lg bg-red-50 p-4 text-red-700">
+      <%= pluralize(@patient.errors.count, "error") %> impidieron guardar este paciente.
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :identifier, "Identificador", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :identifier, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :name, "Nombre", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :name, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :species_id, "Especie", class: "mb-2 block font-medium text-slate-700" %>
+    <%= collection_select(:patient, :species_id, Species.all, :id, :common_name, { prompt: true }, { class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" }) %>
+  </div>
+
+  <div>
+    <%= form.label :admission_date, "Fecha de admisión", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.date_field :admission_date, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :status, "Estado", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_field :status, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :custom_metrics, "Métricas personalizadas (JSON)", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.text_area :custom_metrics, class: "min-h-32 w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <%= form.submit "Guardar Paciente", class: "rounded-lg bg-emerald-600 px-5 py-2 font-semibold text-white hover:bg-emerald-700" %>
+<% end %>
