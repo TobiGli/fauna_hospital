@@ -17,8 +17,10 @@ class MedicalRecordsController < ApplicationController
     @medical_record = @patient.medical_records.build(medical_record_params)
 
     if @medical_record.save
-      redirect_to patient_medical_record_path(@patient, @medical_record),
-                  notice: "Medical record was successfully created."
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to @patient, notice: "Ficha médica creada." }
+      end
     else
       render :new, status: :unprocessable_entity
     end
