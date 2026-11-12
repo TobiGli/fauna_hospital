@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   resources :species
   resources :patients do
+    collection do
+      post :import
+    end
     resources :medical_records
   end
 
