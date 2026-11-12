@@ -43,6 +43,8 @@ autenticación y autorización.
 - Importación masiva de pacientes mediante CSV.
 - Procesamiento de la importación mediante `PatientImportJob`.
 - Notificación por email al finalizar una importación.
+- Historial de vacunaciones con próxima dosis anual.
+- Recordatorios automáticos de vacunas próximas a vencer.
 
 ## Stack técnico
 
@@ -56,6 +58,7 @@ autenticación y autorización.
 - Active Storage para imágenes.
 - Active Job para tareas en segundo plano.
 - Action Mailer para notificaciones.
+- Recordatorios periódicos mediante Solid Queue.
 - Minitest para pruebas.
 
 ## Requisitos
@@ -165,6 +168,33 @@ CAR-002,Pancho,Carpincho,2026-11-11,En observación,"{""incisivos_desgastados"":
 
 `species_name` debe coincidir con el `common_name` de una especie existente.
 `custom_metrics_raw` debe contener un objeto JSON válido.
+
+## Vacunaciones y recordatorios
+
+Las vacunaciones son registros separados de las fichas médicas porque tienen
+un ciclo propio: una vacuna se aplica en una fecha y normalmente debe
+repetirse al año siguiente. Cada vacunación pertenece a un paciente y guarda:
+
+- Nombre de la vacuna.
+- Fecha de aplicación.
+- Próxima dosis.
+- Dosis administrada, si corresponde.
+- Notas clínicas.
+
+Si no se informa la próxima dosis, el modelo la calcula automáticamente como
+un año después de `applied_at`. La aplicación valida que la fecha aplicada no
+sea futura y que la próxima dosis no sea anterior a la aplicación.
+
+Las rutas de vacunación están anidadas bajo cada paciente:
+
+```text
+/patients/:patient_id/vaccinations
+```
+
+El `VaccinationReminderJob` busca diariamente vacunaciones cuya próxima dosis
+vence dentro de los siguientes 30 días. Envía un email a veterinarios y
+administradores y marca esas vacunaciones como notificadas para no repetir el
+mismo recordatorio diariamente.
 
 ## Rutas principales
 
