@@ -49,7 +49,7 @@ class PatientsController < ApplicationController
         file.write(params[:file].read)
       end
 
-      PatientImportJob.perform_later(file_path.to_s)
+      PatientImportJob.perform_later(file_path.to_s, current_user.email)
       redirect_to patients_path, notice: "La importación ha comenzado en segundo plano. Te notificaremos cuando termine."
     else
       redirect_to patients_path, alert: "Selecciona un archivo CSV para importar."
