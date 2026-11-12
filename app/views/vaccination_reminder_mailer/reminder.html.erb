@@ -1,0 +1,11 @@
+<h1>Recordatorio de vacunación</h1>
+<p>Estas vacunas vencen dentro de los próximos 30 días:</p>
+<ul>
+  <% @vaccinations.each do |vaccination| %>
+    <li>
+      <strong><%= vaccination.vaccine_name %></strong> -
+      paciente <%= vaccination.patient.name %> -
+      próxima dosis: <%= vaccination.next_due_at %>
+    </li>
+  <% end %>
+</ul>

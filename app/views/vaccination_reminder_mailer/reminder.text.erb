@@ -1,0 +1,7 @@
+Recordatorio de vacunación
+
+Estas vacunas vencen dentro de los próximos 30 días:
+
+<% @vaccinations.each do |vaccination| %>
+- <%= vaccination.vaccine_name %> - paciente <%= vaccination.patient.name %> - próxima dosis: <%= vaccination.next_due_at %>
+<% end %>
