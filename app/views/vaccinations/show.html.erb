@@ -1,0 +1,25 @@
+<div class="mb-8 flex items-start justify-between">
+  <div>
+    <h1 class="text-3xl font-bold text-slate-900"><%= @vaccination.vaccine_name %></h1>
+    <p class="mt-2 text-slate-600">Paciente: <%= @patient.name %></p>
+  </div>
+  <%= link_to "Editar", edit_patient_vaccination_path(@patient, @vaccination), class: "rounded-lg bg-slate-200 px-4 py-2 font-semibold text-slate-800" %>
+</div>
+
+<section class="rounded-lg bg-white p-6 shadow">
+  <dl class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <dt class="font-medium text-slate-500">Fecha aplicada</dt>
+      <dd class="text-slate-900"><%= @vaccination.applied_at %></dd>
+    </div>
+    <div>
+      <dt class="font-medium text-slate-500">Próxima dosis</dt>
+      <dd class="text-slate-900"><%= @vaccination.next_due_at %></dd>
+    </div>
+    <div>
+      <dt class="font-medium text-slate-500">Dosis</dt>
+      <dd class="text-slate-900"><%= @vaccination.dose || "No especificada" %></dd>
+    </div>
+  </dl>
+  <p class="mt-6 text-slate-700"><strong>Notas:</strong> <%= @vaccination.notes.presence || "Sin notas" %></p>
+</section>
