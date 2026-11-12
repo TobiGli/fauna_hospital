@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_11_234402) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_11_235400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -87,8 +87,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_11_234402) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vaccinations", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.string "vaccine_name", null: false
+    t.date "applied_at", null: false
+    t.date "next_due_at", null: false
+    t.decimal "dose"
+    t.text "notes"
+    t.datetime "reminder_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_vaccinations_on_patient_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "medical_records", "patients"
   add_foreign_key "patients", "species"
+  add_foreign_key "vaccinations", "patients"
 end
