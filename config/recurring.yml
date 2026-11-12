@@ -17,3 +17,9 @@ production:
     class: VaccinationReminderJob
     queue: default
     schedule: every day at 8am
+
+development:
+  vaccination_reminders:
+    class: VaccinationReminderJob
+    queue: default
+    schedule: every day at 8am
