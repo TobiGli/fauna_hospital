@@ -11,10 +11,12 @@ class MedicalRecordsController < ApplicationController
 
   def new
     @medical_record = @patient.medical_records.build
+    authorize @medical_record
   end
 
   def create
     @medical_record = @patient.medical_records.build(medical_record_params)
+    authorize @medical_record
 
     if @medical_record.save
       respond_to do |format|
