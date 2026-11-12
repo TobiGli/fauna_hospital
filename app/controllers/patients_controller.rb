@@ -1,3 +1,6 @@
+require "csv"
+require "json"
+
 class PatientsController < ApplicationController
   before_action :set_patient, only: %i[show edit update destroy]
 
@@ -36,6 +39,27 @@ class PatientsController < ApplicationController
   def destroy
     @patient.destroy!
     redirect_to patients_path, status: :see_other, notice: "Patient was successfully destroyed."
+  end
+
+  def import
+    if params[:file].present?
+      CSV.foreach(params[:file].path, headers: true) do |row|
+        species = Species.find_by(common_name: row["species_name"])
+
+        Patient.create!(
+          identifier: row["identifier"],
+          name: row["name"],
+          species: species,
+          admission_date: row["admission_date"],
+          status: row["status"],
+          custom_metrics: JSON.parse(row["custom_metrics_raw"].to_s)
+        )
+      end
+
+      redirect_to patients_path, notice: "Pacientes importados correctamente."
+    else
+      redirect_to patients_path, alert: "Selecciona un archivo CSV para importar."
+    end
   end
 
   private
