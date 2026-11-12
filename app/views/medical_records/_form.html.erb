@@ -1,4 +1,4 @@
-<%= form_with model: [@patient, @medical_record], class: "space-y-6" do |form| %>
+<%= form_with model: [@patient, @medical_record], html: { class: "space-y-6", multipart: true } do |form| %>
   <% if @medical_record.errors.any? %>
     <div class="rounded-lg bg-red-50 p-4 text-red-700">
       <%= pluralize(@medical_record.errors.count, "error") %> impidieron guardar esta ficha médica.
@@ -25,6 +25,11 @@
   <div>
     <%= form.label :treatment_plan, "Plan de tratamiento", class: "mb-2 block font-medium text-slate-700" %>
     <%= form.text_area :treatment_plan, rows: 4, class: "w-full rounded-lg border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500" %>
+  </div>
+
+  <div>
+    <%= form.label :xray, "Radiografía o foto clínica", class: "mb-2 block font-medium text-slate-700" %>
+    <%= form.file_field :xray, class: "block w-full rounded-lg border border-slate-300 p-2 text-sm text-slate-700 file:mr-4 file:rounded file:border-0 file:bg-emerald-50 file:px-4 file:py-2 file:font-semibold file:text-emerald-700 hover:file:bg-emerald-100" %>
   </div>
 
   <%= form.submit "Guardar Ficha Médica", class: "rounded-lg bg-emerald-600 px-5 py-2 font-semibold text-white hover:bg-emerald-700" %>

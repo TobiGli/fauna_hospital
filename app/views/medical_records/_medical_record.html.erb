@@ -4,4 +4,7 @@
   <p class="text-slate-700"><strong>Temperatura:</strong> <%= medical_record.temperature %></p>
   <p class="mt-3 text-slate-700"><strong>Diagnóstico:</strong> <%= medical_record.diagnosis %></p>
   <p class="text-slate-700"><strong>Plan de tratamiento:</strong> <%= medical_record.treatment_plan %></p>
+  <% if medical_record.xray.attached? %>
+    <%= image_tag medical_record.xray, class: "w-32 h-32 object-cover rounded mt-2" %>
+  <% end %>
 </article>
