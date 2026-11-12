@@ -41,7 +41,8 @@ class MedicalRecordsController < ApplicationController
       :weight,
       :temperature,
       :diagnosis,
-      :treatment_plan
+      :treatment_plan,
+      :xray
     )
   end
 end
